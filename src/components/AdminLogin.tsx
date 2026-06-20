@@ -44,7 +44,7 @@ export default function AdminLogin() {
       await signInWithPopup(auth, googleProvider);
     } catch (err: any) {
       console.error(err);
-      setError("구글 로그인 처리에 오류가 있습니다.");
+      setError(`구글 로그인 실패: ${err.message || err.code || "네트워크 오류"}. 브라우저 팝업이 차단되었거나 도메인이 미정의되었을 수 있습니다. 아래 '이메일 가입'을 누르고 직접 동일 구글 메일(whckdghkssla@gmail.com)로 가입하여 로그인해 주세요.`);
     } finally {
       setLoading(false);
     }
@@ -76,13 +76,16 @@ export default function AdminLogin() {
           )}
 
           {/* Quick instructions tool info box */}
-          <div className="bg-slate-50 border border-blue-100 p-3.5 rounded-xl space-y-1 text-xs text-slate-600 leading-normal">
-            <span className="flex items-center text-blue-600 font-bold mb-1">
-              <Info className="h-3.5 w-3.5 mr-1" />
-              <span>편리한 어플릿 체험 지원 알림</span>
+          <div className="bg-blue-50/70 border border-blue-200 p-4 rounded-xl space-y-2 text-xs text-slate-700 leading-relaxed">
+            <span className="flex items-center text-blue-700 font-bold">
+              <Info className="h-4 w-4 mr-1 text-blue-600 shrink-0" />
+              <span>로그인 오류 우회 안내</span>
             </span>
             <p>
-              현재 AI Studio 샌드박스에서 <strong>구글 간편 로그인</strong> 또는 신규 이메일 가입 등록을 하시면 즉각 관리 권한을 획득하여 신규 물품 등록, 편집 및 삭제 테스트가 완료됩니다.
+              배포 환경이나 샌드박스에서 <strong>구글 로그인창(팝업)이 차단되거나 정상 작동하지 않는 경우</strong>, 아래 <span className="font-semibold text-blue-700">"관리자 신규 가입이 필요하신가요? 등록"</span> 링크를 클릭한 후, 본인의 이메일(<code className="bg-white px-1 py-0.5 rounded border border-slate-200 font-bold">whckdghkssla@gmail.com</code>)로 비밀번호를 설정해서 직통 가입해 보세요!
+            </p>
+            <p className="text-[11px] text-slate-500">
+              * 가입 완료 후 로그인 시 동일한 이메일 주소의 관리자 권한이 100% 반영되어 원재료 추가, 수정, 삭제 제어가 즉시 가능해집니다.
             </p>
           </div>
 

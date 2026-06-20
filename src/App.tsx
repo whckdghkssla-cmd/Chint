@@ -366,7 +366,12 @@ export default function App() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.15 }}
             >
-              {!loadingUser && (
+              {loadingUser ? (
+                <div className="flex flex-col items-center justify-center py-20">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                  <span className="text-xs text-slate-500 mt-2">파이어베이스 인증 정보를 확인하고 있습니다...</span>
+                </div>
+              ) : (
                 user ? (
                   <AdminPanel 
                     items={items} 

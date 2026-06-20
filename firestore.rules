@@ -9,10 +9,13 @@ service cloud.firestore {
     // Checking if the user is an admin.
     // Explicitly grants admin read/write permission to the user's Google email.
     function isAdmin() {
-      return isAuthenticated() && (
-        request.auth.token.email == "whckdghkssla@gmail.com" ||
-        request.auth.token.email == "admin@chmetal.com"
-      );
+      return isAuthenticated() && 
+        request.auth.token.email != null && (
+          request.auth.token.email == "whckdghkssla@gmail.com" ||
+          request.auth.token.email == "admin@chmetal.com" ||
+          request.auth.token.email.matches("(?i)whckdghkssla@gmail.com") ||
+          request.auth.token.email.matches("(?i)admin@chmetal.com")
+        );
     }
 
     match /inventory/{itemId} {

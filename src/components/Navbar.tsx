@@ -141,7 +141,7 @@ export default function Navbar({ currentTab, setCurrentTab, user, loadingUser }:
       <div className="md:hidden flex h-12 border-t border-slate-100 bg-white justify-around items-center">
         <button
           onClick={() => setCurrentTab("about")}
-          className={`flex flex-col items-center justify-center w-1/4 h-full text-[10px] font-bold ${
+          className={`flex flex-col items-center justify-center w-1/5 h-full text-[10px] font-bold ${
             currentTab === "about" ? "text-blue-600" : "text-slate-500"
           }`}
         >
@@ -150,7 +150,7 @@ export default function Navbar({ currentTab, setCurrentTab, user, loadingUser }:
         </button>
         <button
           onClick={() => setCurrentTab("inventory")}
-          className={`flex flex-col items-center justify-center w-1/4 h-full text-[10px] font-bold ${
+          className={`flex flex-col items-center justify-center w-1/5 h-full text-[10px] font-bold ${
             currentTab === "inventory" ? "text-blue-600" : "text-slate-500"
           }`}
         >
@@ -159,7 +159,7 @@ export default function Navbar({ currentTab, setCurrentTab, user, loadingUser }:
         </button>
         <button
           onClick={() => setCurrentTab("completed")}
-          className={`flex flex-col items-center justify-center w-1/4 h-full text-[10px] font-bold ${
+          className={`flex flex-col items-center justify-center w-1/5 h-full text-[10px] font-bold ${
             currentTab === "completed" ? "text-blue-600" : "text-slate-500"
           }`}
         >
@@ -171,12 +171,22 @@ export default function Navbar({ currentTab, setCurrentTab, user, loadingUser }:
         </button>
         <button
           onClick={() => setCurrentTab("contact")}
-          className={`flex flex-col items-center justify-center w-1/4 h-full text-[10px] font-bold ${
+          className={`flex flex-col items-center justify-center w-1/5 h-full text-[10px] font-bold ${
             currentTab === "contact" ? "text-blue-600" : "text-slate-500"
           }`}
         >
           <PhoneCall className="h-4 w-4 mb-0.5" />
           <span>문의하기</span>
+        </button>
+        <button
+          onClick={() => setCurrentTab("admin")}
+          className={`flex flex-col items-center justify-center w-1/5 h-full text-[10px] font-bold ${
+            currentTab === "admin" ? "text-blue-600" : "text-slate-500"
+          }`}
+          id="nav-mobile-admin"
+        >
+          <Lock className="h-4 w-4 mb-0.5" />
+          <span>관리자</span>
         </button>
       </div>
     </header>

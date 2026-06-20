@@ -5,7 +5,7 @@ import {
   updateInventoryItem, 
   deleteInventoryItem 
 } from "../dbService";
-import { db, collection, getDocs, deleteDoc, doc } from "../firebase";
+import { db, collection, getDocs, deleteDoc, doc, auth } from "../firebase";
 import { 
   Plus, Edit2, Trash2, Tag, Layers, FileText, CheckCircle2,
   ListFilter, Sparkles, Scale, Info, Layers3, RefreshCw, BarChart3,
@@ -200,8 +200,48 @@ export default function AdminPanel({ items, onRefresh }: AdminPanelProps) {
   const reservedCount = items.filter(i => i.status === "예약중").length;
   const completedCount = items.filter(i => i.status === "판매완료").length;
 
+  const currentUser = auth.currentUser;
+  const isAuthorizedAdmin = currentUser && (
+    currentUser.email === "whckdghkssla@gmail.com" || 
+    currentUser.email === "admin@chmetal.com"
+  );
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      {/* Authentication & Authorization Status Bar */}
+      <div className={`p-4 rounded-2xl border flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs ${
+        isAuthorizedAdmin 
+          ? "bg-emerald-50/70 border-emerald-200 text-emerald-800"
+          : "bg-amber-50 border-amber-250 text-amber-900"
+      }`}>
+        <div className="flex items-start md:items-center space-x-2">
+          {isAuthorizedAdmin ? (
+            <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5 md:mt-0" />
+          ) : (
+            <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5 md:mt-0" />
+          )}
+          <div>
+            <p className="font-bold">
+              {isAuthorizedAdmin 
+                ? "관리자 안전 서명 승인됨" 
+                : "권한 미승인 또는 제한 상태"
+              }
+            </p>
+            <p className="text-slate-500 font-medium mt-0.5">
+              {currentUser 
+                ? `현재 서명 접수 계정: ${currentUser.email} (${isAuthorizedAdmin ? "승인 완료" : "인증 오류 - whckdghkssla@gmail.com 계정으로 접속하세요"})`
+                : "서명되지 않음 - 게스트로 접속 중이며, 원재료의 생성/수정/삭제 조작이 제한됩니다."
+              }
+            </p>
+          </div>
+        </div>
+        {!isAuthorizedAdmin && (
+          <div className="text-slate-600 leading-normal text-[11px] bg-white border border-amber-200 p-2.5 rounded-xl md:max-w-md">
+            <strong>우회 등록 완료 방법:</strong> 파이어베이스 간편 로그인 팝업 제한 우회를 위해 "로그인" 탭으로 가서 <strong>"관리자 신규 등록 (가입)"</strong>을 눌러 <code className="bg-slate-100 font-mono px-1 font-bold">whckdghkssla@gmail.com</code>로 계정을 가입 후 로그인하시면 1초 만에 권한이 자동 동기화됩니다!
+          </div>
+        )}
+      </div>
+
       {/* Admin Title Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 pb-5">
         <div>
