@@ -7,7 +7,7 @@ import { motion } from "motion/react";
 interface NavbarProps {
   currentTab: string;
   setCurrentTab: (tab: string) => void;
-  user: User | null;
+  user: any;
   loadingUser: boolean;
 }
 
@@ -22,7 +22,9 @@ export default function Navbar({ currentTab, setCurrentTab, user, loadingUser }:
 
   const handleLogout = async () => {
     try {
+      localStorage.removeItem("ch_admin_bypass");
       await signOut(auth);
+      window.location.reload();
     } catch (err) {
       console.error("Logout failed:", err);
     }

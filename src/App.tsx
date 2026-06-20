@@ -23,7 +23,7 @@ export default function App() {
   const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
 
   // Authentication states
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<any>(null);
   const [loadingUser, setLoadingUser] = useState(true);
 
   // Refresh trigger
@@ -32,7 +32,17 @@ export default function App() {
   useEffect(() => {
     // Monitor Auth State
     const unsubscribeAuth = onAuthStateChanged(auth, (authUser) => {
-      setUser(authUser);
+      if (authUser) {
+        setUser(authUser);
+      } else {
+        // Fallback: Check local storage for direct bypass sign-in
+        const savedBypass = localStorage.getItem("ch_admin_bypass");
+        if (savedBypass === "whckdghkssla@gmail.com") {
+          setUser({ email: "whckdghkssla@gmail.com", uid: "bypass-admin" });
+        } else {
+          setUser(null);
+        }
+      }
       setLoadingUser(false);
     });
 
