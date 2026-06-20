@@ -1,0 +1,50 @@
+{
+  "entities": {
+    "InventoryItem": {
+      "title": "InventoryItem",
+      "description": "Metal scrap inventory item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "quantity": { "type": "number" },
+        "unit": { "type": "string" },
+        "composition": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "images": {
+          "type": "array"
+        }
+      },
+      "required": ["name", "category", "quantity", "unit", "composition", "description", "status"]
+    },
+    "Inquiry": {
+      "title": "Inquiry",
+      "description": "Customer inquiry form submission",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "message": { "type": "string" },
+        "itemName": { "type": "string" },
+        "itemId": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "phone", "message", "itemName"]
+    }
+  },
+  "firestore": {
+    "/inventory/{itemId}": {
+      "schema": "InventoryItem",
+      "description": "Inventory items of metal scrap"
+    },
+    "/inquiries/{inquiryId}": {
+      "schema": "Inquiry",
+      "description": "Customer contact form and detail inquiries"
+    }
+  }
+}

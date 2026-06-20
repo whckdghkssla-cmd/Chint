@@ -1,0 +1,6 @@
+{
+  "name": "Ch인터내셔널 스크랩",
+  "description": "동, 니켈, 주석, 은, 특수합금 등 금속스크랩 재고 실시간 공개 및 구매 문의를 위한 전문 유통 시스템입니다.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

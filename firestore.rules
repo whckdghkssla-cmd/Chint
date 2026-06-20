@@ -1,0 +1,28 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Shared validation functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Checking if the user is an admin.
+    // Explicitly grants admin read/write permission to the user's Google email.
+    function isAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.email == "whckdghkssla@gmail.com" ||
+        request.auth.token.email == "admin@chmetal.com"
+      );
+    }
+
+    match /inventory/{itemId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /inquiries/{inquiryId} {
+      allow create: if true;
+      allow read, delete: if isAdmin();
+    }
+  }
+}
